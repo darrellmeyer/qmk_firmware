@@ -1,110 +1,63 @@
-#include "action.h"
-#include "process_tap_dance.h"
-#include "quantum.h"
 #include QMK_KEYBOARD_H
+#include "quantum.h"
+#include "action.h"
+
+
+// ` 9 0 - = bspc
+// tab O P [ ] bsls
+// caps L ; '
+// V B N M , . /
 
 enum combos {
-  E_A,
-  E_DOT,
-  C_LSFT,
-  A_D,
-  DOT_C,
-
-  E_SPC,
-  Z_SPC,
-  A_SPC,
-  X_SPC2,
-  D_SPC,
-  W_SPC,
-  Q_SPC,
+  RBRC,
+  N1_3,
   Q_E,
-//   R_SPC,
-  F_SPC,
-  A_LBRC,
-  D_LBRC,
-  DOT_LBRC,
-  DOT_SPC,
-  A_D_SPC,
-  DOT_D,
-  DOT_A,
+  Q_2_E,
+  E_2,
+  Q_2,
+  E_RBRC,
+  SLSH_E,
 };
-
-// const uint16_t PROGMEM ea_combo[] = {KC_E, KC_A, COMBO_END};
-// const uint16_t PROGMEM e_dot_combo[] = {KC_E, KC_DOT, COMBO_END};
-// const uint16_t PROGMEM e_spc_combo[] = {KC_E, KC_SPC, COMBO_END};
-// const uint16_t PROGMEM z_spc_combo[] = {KC_Z, KC_SPC, COMBO_END};
-// const uint16_t PROGMEM x_spc2_combo[] = {KC_X, KC_SPC, COMBO_END};
-// const uint16_t PROGMEM c_lsft_combo[] = {KC_C, KC_LSFT, COMBO_END};
-// const uint16_t PROGMEM ad_combo[] = {KC_A, KC_D, COMBO_END};
-// const uint16_t PROGMEM dot_c_combo[] = {KC_DOT, KC_C, COMBO_END};
-// const uint16_t PROGMEM a_spc_combo[] = {KC_A, KC_SPC, COMBO_END};
-// const uint16_t PROGMEM d_spc_combo[] = {KC_D, KC_SPC, COMBO_END};
-// const uint16_t PROGMEM w_spc_combo[] = {KC_W, KC_SPC, COMBO_END};
-// const uint16_t PROGMEM q_spc_combo[] = {KC_Q, KC_SPC, COMBO_END};
-// const uint16_t PROGMEM qe_combo[] = {KC_Q, KC_E, COMBO_END};
-// // const uint16_t PROGMEM r_spc_combo[] = {KC_R, KC_SPC, COMBO_END};
-// const uint16_t PROGMEM f_spc_combo[] = {KC_F, KC_SPC, COMBO_END};
-// // const uint16_t PROGMEM d_lbrc_combo[] = {KC_D, KC_LBRC, COMBO_END};
-// // const uint16_t PROGMEM a_lbrc_combo[] = {KC_A, KC_LBRC, COMBO_END};
-// const uint16_t PROGMEM dot_lbrc_combo[] = {KC_DOT, KC_LBRC, COMBO_END};
-// const uint16_t PROGMEM ad_spc_combo[] = {KC_A, KC_D, KC_SPC, COMBO_END};
-// const uint16_t PROGMEM dot_spc_combo[] = {KC_DOT, KC_SPC, COMBO_END};
-// const uint16_t PROGMEM dot_d_combo[] = {KC_DOT, KC_D, COMBO_END};
-// const uint16_t PROGMEM dot_a_combo[] = {KC_DOT, KC_A, COMBO_END};
-// o = mount
-// p = plates
-// l =
-// t = tactical
-// h = field upgrade
-// z = crouch
-// ; = danger ping
-// : =
-// m = map
+const uint16_t PROGMEM rbrc_combo[] = {KC_RBRC, COMBO_END};
+const uint16_t PROGMEM n13_combo[] = {KC_1, KC_3, COMBO_END};
+// const uint16_t PROGMEM n23_combo[] = {KC_2, KC_3, COMBO_END};
+const uint16_t PROGMEM qe_combo[] = {KC_Q, KC_E, COMBO_END};
+const uint16_t PROGMEM q2e_combo[] = {KC_Q, KC_2, KC_E, COMBO_END};
+const uint16_t PROGMEM q2_combo[] = {KC_Q, KC_2, COMBO_END};
+const uint16_t PROGMEM e2_combo[] = {KC_2, KC_E, COMBO_END};
+// const uint16_t PROGMEM je_combo[] = {KC_J, KC_E, COMBO_END};
+// const uint16_t PROGMEM jq_combo[] = {KC_J, KC_Q, COMBO_END};
+// const uint16_t PROGMEM q_rbrc_combo[] = {KC_Q, KC_RBRC, COMBO_END};
+const uint16_t PROGMEM e_rbrc_combo[] = {KC_E, KC_RBRC, COMBO_END};
 
 
-// combo_t key_combos[] = {
-//   [E_A] = COMBO(ea_combo, KC_P),
-//   [E_DOT] = COMBO(e_dot_combo, KC_H),
-//   [Q_SPC] = COMBO(q_spc_combo, KC_T),
-//   [E_SPC] = COMBO(e_spc_combo, KC_L),
-//   [R_SPC] = COMBO(r_spc_combo, KC_O),
-//   [F_SPC] = COMBO(f_spc_combo, KC_H),
-//   [X_SPC2] = COMBO(x_spc2_combo, KC_H),
-//   [C_SPC] = COMBO(c_spc_combo, KC_H),
-//   [Q_E] = COMBO(qe_combo, KC_ESC),
+combo_t key_combos[] = {
+//   [RBRC] = COMBO(rbrc_combo, KC_TAB),
+  [N1_3] = COMBO(n13_combo, KC_F2),
+//   [N2_3] = COMBO(n23_combo, KC_P),
+//   [Q_E] = COMBO(qe_combo, KC_ESC), // mount
+//   [Q_2_E] = COMBO(q2e_combo, KC_ESC),
+//   [E_2] = COMBO(e2_combo, C(A(S(KC_BSLS)))), // game mute
+//   [Q_2] = COMBO(q2_combo, C(A(S(KC_GRV)))), // mic mute
+//   [J_E] = COMBO(je_combo, KC_O),
+//   [J_Q] = COMBO(jq_combo, KC_O),w
+//   [Q_RBRC] = COMBO(q_rbrc_combo, KC_O),
+//   [E_RBRC] = COMBO(e_rbrc_combo, KC_O),
 
-//   [Z_SPC] = COMBO(z_spc_combo, KC_M),
-
-//   [C_LSFT] = COMBO(c_lsft_combo, KC_K),
-//   [A_D] = COMBO(ad_combo, KC_SLSH),
-//   [DOT_C] = COMBO(dot_c_combo, KC_M),
-//   [A_SPC] = COMBO(a_spc_combo, KC_L),
-//   [D_SPC] = COMBO(d_spc_combo, KC_T),
-//   [DOT_SPC] = COMBO(dot_spc_combo, KC_TAB),
-//   [W_SPC] = COMBO(w_spc_combo, KC_H),
-
-//   [D_LBRC] = COMBO(d_lbrc_combo, KC_SCLN),
-//   [A_LBRC] = COMBO(a_lbrc_combo, KC_Z),
-//   [DOT_LBRC] = COMBO(dot_lbrc_combo, KC_ESC),
-//   [DOT_D] = COtsMBO(dot_d_combo, KC_M),
-//   [DOT_A] = COMBO(dot_a_combo, KC_ESC),
-//   [A_D_SPC] = COMBO(ad_spc_combo, KC_Z),
-// };
-
-// \ : '
-// L M O P
+};
 
 enum td_keycodes {
   Q_O, // mount
-  R_P, // plates
-  J_SCLN, // ping / danger ping
-//   F_P   ,
+  R_TAB, // plates
+  Z_P, // ping / danger ping
+//   F_P   ,]
 //   Z_SCLN, // map scoreboard/backpack
 //   X_ESC2,
-  RBRC_QUOT, // ping/danger ping
-  K1_F1,
-  K2_F2,
-  K3_F3
+  RBRC_M, // ping/danger ping
+  K1_ESC,
+  K2_MUTE_APP,
+  K3_MUTE_MIC,
+  K4_SETTINGS,
 };
 
 typedef struct {
@@ -118,15 +71,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     switch (keycode) {
         case TD(Q_O):
-        case TD(R_P):
-        case TD(J_SCLN):
+        case TD(R_TAB):
+        case TD(Z_P):
         // case TD(F_P):
         // case TD(Z_SCLN):
         // case TD(X_ESC2):
-        case TD(RBRC_QUOT):
-        // case TD(K1_F1):
-        // case TD(K2_F2):
-        // case TD(K3_F3):
+        case TD(RBRC_M):
+        case TD(K1_ESC):
+        case TD(K2_MUTE_APP):
+        case TD(K3_MUTE_MIC):
+        case TD(K4_SETTINGS):
             action = &tap_dance_actions[TD_INDEX(keycode)];
             if (!record->event.pressed && action->state.count && !action->state.finished) {
                 tap_dance_tap_hold_t *tap_hold = (tap_dance_tap_hold_t *)action->user_data;
@@ -168,28 +122,41 @@ void tap_dance_tap_hold_reset(tap_dance_state_t *state, void *user_data) {
 
 tap_dance_action_t tap_dance_actions[] = {
     [Q_O] = ACTION_TAP_DANCE_TAP_HOLD(KC_Q, KC_O),
-    [R_P] = ACTION_TAP_DANCE_TAP_HOLD(KC_R, KC_P),
-    [J_SCLN] = ACTION_TAP_DANCE_TAP_HOLD(KC_J, KC_SCLN),
+    [R_TAB] = ACTION_TAP_DANCE_TAP_HOLD(KC_R, KC_TAB),
+    [Z_P] = ACTION_TAP_DANCE_TAP_HOLD(KC_Z, KC_P),
     // [R_COMM] = ACTION_TAP_DANCE_TAP_HOLD(KC_R, KC_COMM),
     // [F_P] = ACTION_TAP_DANCE_TAP_HOLD(KC_F, KC_P),
     // [Z_SCLN] = ACTION_TAP_DANCE_TAP_HOLD(KC_Z, KC_SCLN),
 
-    [RBRC_QUOT] = ACTION_TAP_DANCE_TAP_HOLD(KC_RBRC, KC_QUOT),
-    // [K1_F1] = ACTION_TAP_DANCE_DOUBLE(KC_1, KC_F1),
-    // [K2_F2] = ACTION_TAP_DANCE_DOUBLE(KC_2, KC_F2),
-    // [K3_F3] = ACTION_TAP_DANCE_DOUBLE(KC_3, KC_F3),
-
+    [RBRC_M] = ACTION_TAP_DANCE_TAP_HOLD(KC_RBRC, KC_M),
+    [K1_ESC] = ACTION_TAP_DANCE_TAP_HOLD(KC_1, KC_ESC),
+    [K2_MUTE_APP] = ACTION_TAP_DANCE_TAP_HOLD(KC_2, KC_F13),
+    [K3_MUTE_MIC] = ACTION_TAP_DANCE_TAP_HOLD(KC_3, KC_F14),
+    [K4_SETTINGS] = ACTION_TAP_DANCE_TAP_HOLD(KC_4, KC_F2),
     // [X_ESC2] = ACTION_TAP_DANCE_TAP_HOLD(KC_X, KC_ESC),
 };
 
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         [0] = LAYOUT_ortho_5x12(
-        KC_NO, KC_NO,   QK_BOOT,   KC_F1,            KC_8,   KC_7,       KC_1,       KC_2,       KC_3,       KC_4,     KC_5,   KC_6,
-        KC_NO, KC_NO,   KC_F7,     KC_F2,            KC_I,   KC_U,       TD(Q_O),    KC_W,       KC_E,       TD(R_P),  KC_T,   KC_Y,
-        KC_NO, KC_NO,   KC_F8,     KC_F3,            KC_K,   KC_J,       KC_A,       KC_S,       KC_D,       KC_F,     KC_G,   KC_H,
-        KC_NO, KC_NO,   A(KC_F9),  C(A(S(KC_BSLS))), KC_M,   KC_LALT,    KC_Z,       KC_ESC,     KC_C,       KC_V,     KC_B,   KC_N,
-        KC_NO, KC_NO,   A(KC_F10), C(A(S(KC_SLSH))), KC_APP, KC_LCTL,    KC_COMM,    KC_DOT,     KC_SLSH,    KC_LBRC,  KC_SPC, TD(RBRC_QUOT)
+        QK_BOOT,   KC_F1,            KC_NO,KC_NO,       KC_8,       KC_7,       TD(K1_ESC), TD(K2_MUTE_APP), TD(K3_MUTE_MIC), TD(K4_SETTINGS),  KC_5,      KC_6,
+        KC_F7,     KC_F2,            KC_NO,KC_NO,       KC_NO,      KC_U,       TD(Q_O),    KC_W,            KC_E,            TD(R_TAB),        KC_T,      KC_Y,
+        A(KC_Z),   KC_F3,            KC_NO,KC_NO,       MO(1),      KC_J,       KC_A,       KC_S,            KC_D,            KC_F,             KC_G,      KC_H,
+        A(KC_F9),  C(A(S(KC_BSLS))), KC_NO,KC_NO,       KC_ESC,     KC_LCTL,    TD(Z_P),    KC_X,            KC_C,            KC_LBRC,          KC_SPC,    KC_NO,
+        A(KC_F10), C(A(S(KC_GRV))),  KC_NO,KC_NO,       KC_APP,     OSL(1),     KC_LALT,    KC_NO,           KC_BSLS,         KC_NO,            KC_NO,     TD(RBRC_M)
+        ),
+        [1] = LAYOUT_ortho_5x12(
+        KC_TRNS,   KC_TRNS,          KC_TRNS,KC_TRNS,   KC_TRNS,   KC_TRNS,    KC_TRNS,    C(A(S(KC_GRV))), C(A(S(KC_BSLS))), KC_TRNS,  KC_TRNS,   KC_TRNS,
+        KC_TRNS,   KC_TRNS,          KC_TRNS,KC_TRNS,   KC_TRNS,   KC_TRNS,    KC_T,       KC_TRNS,         KC_T,             KC_TRNS,  KC_TRNS,   KC_TRNS,
+        KC_TRNS,   KC_TRNS,          KC_TRNS,KC_TRNS,   KC_TRNS,   KC_J,       KC_TRNS,    KC_TRNS,         KC_R,             KC_TRNS,  KC_TRNS,   KC_TRNS,
+        KC_TRNS,   KC_TRNS,          KC_TRNS,KC_TRNS,   KC_TRNS,   KC_TRNS,    KC_TRNS,    KC_TRNS,         KC_TRNS,          KC_TRNS,  KC_TAB,    KC_TRNS,
+        KC_TRNS,   KC_TRNS,          KC_TRNS,KC_TRNS,   KC_TRNS,   KC_TRNS,    KC_TRNS,    KC_TRNS,         KC_TRNS,          KC_TRNS,  KC_TRNS,   KC_TRNS
+        ),
+        [2] = LAYOUT_ortho_5x12(
+        KC_TRNS,   KC_TRNS,          KC_TRNS,KC_TRNS,   KC_TRNS,   KC_TRNS,    KC_TRNS,    KC_TRNS,         KC_TRNS,          KC_TRNS,  KC_TRNS,   KC_TRNS,
+        KC_TRNS,   KC_TRNS,          KC_TRNS,KC_TRNS,   KC_TRNS,   KC_TRNS,    KC_TRNS,    KC_TRNS,         KC_TRNS,          KC_TRNS,  KC_TRNS,   KC_TRNS,
+        KC_TRNS,   KC_TRNS,          KC_TRNS,KC_TRNS,   KC_TRNS,   KC_TRNS,    KC_Y,       KC_TRNS,         KC_QUOT,          KC_TRNS,  KC_TRNS,   KC_TRNS,
+        KC_TRNS,   KC_TRNS,          KC_TRNS,KC_TRNS,   KC_TRNS,   KC_M,       KC_TRNS,    KC_TRNS,         KC_TRNS,          KC_TRNS,  KC_TAB,    KC_TRNS,
+        KC_TRNS,   KC_TRNS,          KC_TRNS,KC_TRNS,   KC_TRNS,   KC_TRNS,    KC_TRNS,    KC_TRNS,         KC_TRNS,          KC_TRNS,  KC_TRNS,   KC_TRNS
         )
 };
 
