@@ -1,4 +1,7 @@
+Diagnostics:
+  Suppress: init_element_not_constant
+
 CompileFlags:
-  Add: [-Wno-unknown-attributes, -Wno-maybe-uninitialized, -Wno-unknown-warning-option]
+  Add: [-Wno-implicit-function-declaration ]
   Remove: [-W*, -mcall-prologues]
   Compiler: clang
