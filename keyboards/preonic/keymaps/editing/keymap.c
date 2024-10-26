@@ -101,18 +101,18 @@ tap_dance_action_t tap_dance_actions[] = {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT_preonic_grid(
-            KC_F1,   KC_F6,       KC_NO,KC_NO,         KC_GRV,   KC_1,      KC_2,      KC_3,       TD(K4_P),  TD(K5_B),  KC_MINS,     KC_NO,
-            KC_F2,   KC_F7,       KC_NO,KC_NO,         KC_U,     KC_Y,      KC_Q,      KC_W,       KC_E,      KC_R,      KC_T,        KC_NO,
-            KC_F3,   KC_F8,       KC_NO,KC_NO,         KC_J,     KC_H,      KC_A,      KC_S,       KC_D,      KC_F,      KC_G,        KC_NO,
-            KC_F4,   KC_F9,       KC_NO,KC_NO,         KC_ESC,   KC_LSFT,   CROUCH,    KC_X,       PRONE,     KC_NO,     KC_NO,       KC_NO,
-            KC_F5,   KC_F10,      KC_NO,KC_NO,         KC_LALT,  KC_LCTL,   KC_TAB,    KC_NO,      KC_SLSH,   SLIDE,     KC_SPC,      OSL(1)
+            KC_F1,   KC_F6,       KC_NO,KC_NO,         KC_GRV,       KC_1,         KC_2,         KC_3,       TD(K4_P),      TD(K5_B),   KC_MINS,     KC_NO,
+            KC_F2,   KC_F7,       KC_NO,KC_NO,         KC_U,         KC_HOME,      RCS(KC_LBRC), C(KC_SLSH), RCS(KC_RBRC),  KC_END,     KC_T,        KC_NO,
+            KC_F3,   KC_F8,       KC_NO,KC_NO,         KC_SEMICOLON, KC_COLN,      LSFT(KC_J),   KC_SPC,     S(KC_L),       KC_QUOT,    KC_NO,       KC_NO,
+            KC_F4,   KC_F9,       KC_NO,KC_NO,         KC_ESC,       KC_A,         KC_B,         KC_X,       C(KC_SLSH),    C(KC_SLSH), KC_NO,       KC_NO,
+            KC_F5,   KC_F10,      KC_NO,KC_NO,         KC_LALT,      KC_LCTL,      KC_TAB,       KC_NO,      KC_SLSH,       KC_RSFT,    KC_SPC,      KC_RCTL
     ),
     [1] = LAYOUT_preonic_grid(
-            QK_BOOT, KC_TRNS,     KC_TRNS,KC_TRNS,     KC_TRNS,  KC_6,      KC_7,      KC_8,       KC_9,      KC_0,     KC_TRNS,     KC_TRNS,
-            KC_TRNS, KC_TRNS,     KC_TRNS,KC_TRNS,     KC_TRNS,  KC_TRNS,   KC_I,      KC_O,       KC_N,      KC_F3,    KC_TRNS,     KC_TRNS,
-            KC_TRNS, KC_TRNS,     KC_TRNS,KC_TRNS,     KC_TRNS,  KC_TRNS,   KC_V,      KC_K,       KC_L,      KC_TRNS,  KC_TRNS,     KC_TRNS,
-            KC_TRNS, KC_TRNS,     KC_TRNS,KC_TRNS,     KC_TRNS,  KC_M,      SP_LAST,   MUTE_MIC,   PLAY,      KC_TRNS,  KC_TRNS,     KC_TRNS,
-            KC_TRNS, KC_TRNS,     KC_TRNS,KC_TRNS,     KC_TRNS,  KC_TRNS,   SP_REC,    MUTE_APP,   NEXT,      KC_TRNS,  KC_TRNS,     KC_TRNS
+            QK_BOOT, KC_TRNS,     KC_TRNS,KC_TRNS,     KC_TRNS,  KC_6,      KC_7,      KC_8,       KC_9,      KC_0,      KC_TRNS,     KC_TRNS,
+            KC_TRNS, KC_TRNS,     KC_TRNS,KC_TRNS,     KC_TRNS,  KC_TRNS,   KC_I,      KC_O,       KC_N,      KC_F3,     KC_TRNS,     KC_TRNS,
+            KC_TRNS, KC_TRNS,     KC_TRNS,KC_TRNS,     KC_TRNS,  KC_TRNS,   KC_V,      KC_K,       KC_L,      KC_TRNS,   KC_TRNS,     KC_TRNS,
+            KC_TRNS, KC_TRNS,     KC_TRNS,KC_TRNS,     KC_TRNS,  KC_M,      SP_LAST,   MUTE_MIC,   PLAY,      KC_TRNS,   KC_TRNS,     KC_TRNS,
+            KC_TRNS, KC_TRNS,     KC_TRNS,KC_TRNS,     KC_TRNS,  KC_TRNS,   SP_REC,    MUTE_APP,   NEXT,      KC_TRNS,   KC_TRNS,     KC_TRNS
     )
 };
 
